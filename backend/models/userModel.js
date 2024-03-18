@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     username: {
         type: String,
-        // required: [true, 'Username is required'],
     },
     email: {
         type: String,
@@ -12,16 +12,18 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
         unique: true,
-        // match: [RegExp, 'Email is not valid']
+        // match: [/^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/, 'Email is not valid'],
     },
     password: {
         type: String,
         required: [true, 'Password is required'],
         // validate: {
-        //     validator: function () {
-
-        //     }
-        // }
+        //     validator: function (password) {
+        //         const regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
+        //         return regexPassword.test(password);
+        //     },
+        //     message: 'Password nije validan',
+        // },
     },
     role: {
         type: String,
@@ -46,6 +48,11 @@ const userSchema = new Schema({
     votedFor: {
         type: Array,
     },
+});
+
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    this.password = await bcrypt.hash(this.password, 12);
 });
 
 const UserModel = mongoose.model('users', userSchema);
