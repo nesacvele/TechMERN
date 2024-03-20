@@ -1,0 +1,21 @@
+@import '../../assets/sass/main.scss';
+
+header {
+    padding: 2rem 0;
+    border-bottom: 2px solid #c6c6c6;
+
+    .navigation-wrapper {
+        display: flex;
+        justify-content: space-between;
+
+        .navigation {
+            nav {
+                ul {
+                    display: flex;
+                    gap: 2rem;
+                    list-style-type: none;
+                }
+            }
+        }
+    }
+}
