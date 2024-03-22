@@ -5,6 +5,7 @@ import AuthorizationPage from './pages/Authorization/AuthorizationPage';
 import { routesConfig } from './config/routesConfig.js';
 import Navigation from './components/Navigation/Navigations';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import './config/axiosConfig.js';
 
 function App() {
     return (
