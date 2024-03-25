@@ -9,10 +9,9 @@ const catchAsync = require('../utils/catchAsync');
 exports.register = catchAsync(async (req, res, next) => {
     const user = await Users.findOne({ email: req.body.email });
     if (!user) {
-        console.log(req.body, 'body');
         const newUser = new Users(req.body);
         const saveNewUser = await newUser.save();
-        await new Email(req.body, 'www.localhost.com').sendWelcome();
+        await new Email({ email: saveNewUser.email, username: saveNewUser.username }, 'http://localhost:5173/').sendWelcome();
         return res.status(200).json({
             status: 'success',
             message: 'User uspesno registrovan',

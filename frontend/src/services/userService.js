@@ -9,9 +9,14 @@ export const register = async (user) => {
                 message: res.data.message,
             };
         }
-        console.log(res, 'res iz servisa');
-        return res;
+        return {
+            status: res.data.err.status,
+            message: res.data.message,
+        };
     } catch (err) {
-        console.log(err, 'greska iz servisa');
+        return {
+            status: err.response.data.err.status,
+            message: err.response.data.message,
+        };
     }
 };

@@ -1,7 +1,7 @@
-function Button({children}) {
+function Button({ children, className }) {
     return (
         <>
-            <button>{children}</button>
+            <button className={className}>{children}</button>
         </>
     );
 }
