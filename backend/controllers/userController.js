@@ -25,16 +25,21 @@ exports.register = catchAsync(async (req, res, next) => {
 // * ===== LOGIN ======
 // * ==================
 exports.login = catchAsync(async (req, res, next) => {
-    const user = await Users.findOne({ email: req.body.email });
+    const user = await Users.findOne({ email: req.body.email }).select('+password');
     if (!user) {
         return next(new AppError('Ovakav korisnik ne postoji, molimo registrujte se', 401));
     }
-    if (user.password === req.body.password) {
-        return res.status(200).json({
-            status: 'success',
-            message: 'Uspesno ste se logovali',
-        });
-    } else {
-        return next(new AppError('Netacni kredencijali', 401));
-    }
+
+    // * Proveravamo password
+    const isCorrectPassword = await user.isCorrectPassword(req.body.password, user.password);
+    if (!isCorrectPassword) return next(new AppError('Netacni kredencijali', 401));
+
+    // * Izbacujemo password
+    const { password, ...userData } = user.toObject();
+
+    return res.status(200).json({
+        status: 'success',
+        message: 'Uspesno ste se logovali',
+        user: userData,
+    });
 });

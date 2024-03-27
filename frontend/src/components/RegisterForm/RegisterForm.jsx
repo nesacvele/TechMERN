@@ -86,7 +86,7 @@ function RegisterForm() {
                         <Input
                             type={showPassword ? 'text' : 'password'}
                             id='password'
-                            placeholder='Type your password'
+                            placeholder='Choose your password'
                             onChange={handleChange}
                         />
                         <span onClick={() => setShowPassword(!showPassword)}>{showPassword ? <IoEyeOff /> : <IoEye />}</span>
