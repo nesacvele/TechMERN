@@ -48,6 +48,11 @@ function Navigation() {
                     <li>
                         <NavLink>Profile</NavLink>
                     </li>
+                    {user.role === 'admin' && (
+                        <li>
+                            <NavLink to={routesConfig.DASHBOARD.url}>Dashboard</NavLink>
+                        </li>
+                    )}
                     <li onClick={userLogout}>
                         <a>Logout</a>
                     </li>

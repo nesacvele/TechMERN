@@ -8,4 +8,7 @@ export const routesConfig = {
     AUTHORIZATION: {
         url: '/authorization',
     },
+    DASHBOARD: {
+        url: '/dashboard',
+    },
 };

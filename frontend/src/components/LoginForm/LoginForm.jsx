@@ -47,9 +47,8 @@ function LoginForm() {
         dispatch(showLoader(true));
         const res = await login(data);
         dispatch(showLoader(false));
-        console.log(res, 'res sa fronta LOGIN');
+        // console.log(res, 'res sa fronta LOGIN');
         if (res.status === 'success') {
-            toast.success(res.message);
             localStorage.setItem(localStorageConfig.USER, JSON.stringify(res.user));
             dispatch(setUser(res.user));
             navigate(routesConfig.SHOP.url);

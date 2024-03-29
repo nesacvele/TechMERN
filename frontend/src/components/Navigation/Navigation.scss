@@ -81,6 +81,11 @@ header {
         a {
             svg {
                 display: inline;
+                transition: all 0.2s linear;
+            }
+
+            &:hover svg {
+                transform: rotate(90deg);
             }
         }
     }
